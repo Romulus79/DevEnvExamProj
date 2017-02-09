@@ -1,0 +1,102 @@
+﻿@using Dev_Env_Exam_Project.Models
+@model CompanyRoleViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Company Profile Page</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+           Phone Number
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (Company company in Model.Companies)
+    {
+        <tr>
+            <td>
+                @company.Name
+            </td>
+            <td>
+                @company.Address
+            </td>
+            <td>
+                @company.PhoneNo
+            </td>
+            <td>
+                @company.Email
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = company.CompanyId })
+                @Html.ActionLink("Details", "Details", new { id = company.CompanyId })
+                @Html.ActionLink("Delete", "Delete", new { id = company.CompanyId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    Company Logo:
+</div><br />
+
+    @{
+        IEnumerable<string> file = Directory.EnumerateFiles(Server.MapPath("~/CompanyLogo/"));
+
+        foreach (var path in file)
+        {
+            var fileName = Path.GetFileName(path);
+            <img src="~/CompanyLogo/@fileName" width="100" height="50" />
+        }
+    }
+
+<h2>Roles</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+          Name
+        </th>
+        <th>
+           Description
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (Role role in Model.Roles)
+    {
+        <tr>
+            <td>
+                @role.Name
+            </td>
+            <td>
+                @role.Description
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = role.RoleId }) |
+                @Html.ActionLink("Details", "Details", new { id = role.RoleId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = role.RoleId })
+            </td>
+        </tr>
+    }
+
+</table>
